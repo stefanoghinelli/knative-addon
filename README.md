@@ -6,8 +6,7 @@ If you are new to SIGHUP Distribution (SD) please refer to the [official documen
 
 ## Requirements
 
-- kubectl (for kustomize)
-- kapp CLI, as used by SD, to enforce the dependency order among the CRDs, the Operator, the KnativeServing and KnativeEventing resources in the aggregated package
+The latest furyctl (follow the instructions in [furyctl's documentation][furyctl-installation]).
 
 ## Usage
 
@@ -20,13 +19,13 @@ spec:
   plugins:
     kustomize:
       - name: knative
-        folder: ./plugins/kustomize/knative-kourier
+        folder: github.com/stefanoghinelli/knative-kustomize-manifests//katalog/knative-kourier?ref=main
 ```
 
 `furyctl` deploys it with kapp, so the annotations in the package are used to apply CRDs, the Operator and the Knative stack in the correct order.
 
 > [!NOTE]
-> `config.domain` is left for SD users to set explicitly, exactly like SD's own ingress module leaves `baseDomain` to be supplied by them. By default KnativeService URLs use `*.svc.cluster.local`, reachable from inside the cluster; SD users set a real external domain with a kustomize patch on KnativeServing's `spec.config.domain`.
+> This package intentionally leaves `KnativeServing.spec.config.domain` unset, just as the SD ingress module does not provide a `baseDomain`. Knative Services therefore use the default `{service}.{namespace}.svc.cluster.local` URLs, which are reachable only from within the cluster. To configure an external domain, patch `spec.config.domain` on the `KnativeServing` resource defined in [`katalog/knative-kourier/platform.yaml`](katalog/knative-kourier/platform.yaml).
 
 ## Examples
 
@@ -39,5 +38,6 @@ spec:
 
 Disclaimer: this is not an official SIGHUP project or roadmap. Refer to the [SIGHUP Distribution documentation][docs] for the official plugins documentation.
 
+[furyctl-installation]: https://github.com/sighupio/furyctl#installation
 [docs]: https://docs.sighup.io/docs/installation/sd-configuration/plugins
 [sd-docs]: https://docs.sighup.io/docs/distribution/
