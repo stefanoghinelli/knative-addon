@@ -25,7 +25,7 @@ spec:
 `furyctl` deploys it with kapp, so the annotations in the package are used to apply CRDs, the Operator and the Knative stack in the correct order.
 
 > [!NOTE]
-> This package intentionally leaves `spec.config.domain` unset in the `KnativeServing` resource, following the same approach as the SD ingress module with `baseDomain`. As a result, Knative Services use the default `{service}.{namespace}.svc.cluster.local` URLs, which are reachable only from within the cluster. To configure a custom domain, patch this field in [`katalog/knative-kourier/platform.yaml`](katalog/knative-kourier/platform.yaml).
+> This package intentionally leaves `spec.config.domain` unset in the `KnativeServing` resource, following the same approach as the SD ingress module with `baseDomain`. As a result, Knative Services use the default `{service}.{namespace}.svc.cluster.local` URLs, which are reachable only from within the cluster. To configure a custom domain, patch `spec.config.domain` in the `KnativeServing` resource defined in [`katalog/knative-kourier/platform.yaml`](katalog/knative-kourier/platform.yaml).
 
 ## Examples
 
