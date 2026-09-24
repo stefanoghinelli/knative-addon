@@ -1,0 +1,33 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: traffic-routing
+  namespace: default
+spec:
+  template:
+    metadata:
+      name: traffic-routing-v2
+    spec:
+      containers:
+        - name: user-container
+          image: gcr.io/knative-samples/helloworld-go:latest
+          env:
+            - name: TARGET
+              value: "v2 (canary)"
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 1000
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
+  traffic:
+    - tag: stable
+      revisionName: traffic-routing-v1
+      percent: 90
+    - tag: canary
+      revisionName: traffic-routing-v2
+      percent: 10

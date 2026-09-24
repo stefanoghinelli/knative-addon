@@ -1,6 +1,4 @@
 # Values for generating Knative Operator manifests using Helm chart
-# Usage: helm template knative-operator /tmp/knative-operator -n knative-operator --values MAINTENANCE.values.yaml > knative-operator-built.yaml
-
 knative_operator:
   knative_operator:
     image: gcr.io/knative-releases/knative.dev/operator/cmd/operator

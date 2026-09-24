@@ -1,0 +1,10 @@
+# Merge patch only. Apply with `kubectl patch`, not `kubectl apply -f`.
+# Changes traffic without resubmitting the immutable Revision template.
+spec:
+  traffic:
+    - tag: current
+      revisionName: traffic-routing-v2
+      percent: 100
+    - tag: stable
+      revisionName: traffic-routing-v1
+      percent: 0
