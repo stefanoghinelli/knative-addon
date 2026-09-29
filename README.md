@@ -19,7 +19,7 @@ spec:
   plugins:
     kustomize:
       - name: knative
-        folder: github.com/stefanoghinelli/knative-kustomize-manifests//katalog/knative-kourier?ref=main
+        folder: ./plugins/kustomize/knative-kourier
 ```
 
 `furyctl` deploys it with kapp, so the annotations in the package are used to apply CRDs, the Operator and the Knative stack in the correct order.
