@@ -1,4 +1,4 @@
-# Knative
+# Knative Add-On
 
 Add serverless capabilities to Kubernetes clusters with [Knative](https://knative.dev/).
 
